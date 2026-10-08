@@ -55,10 +55,11 @@ jobs:
       - name: Install and test the bumped formula
         if: steps.sync.outputs.changed == 'true'
         run: |
-          brew tap-new "$GITHUB_REPOSITORY_OWNER/tap" --no-git || true
-          TAP_DIR="$(brew --repository)/Library/Taps/$GITHUB_REPOSITORY_OWNER/homebrew-tap"
-          mkdir -p "$TAP_DIR/Formula"
-          cp Formula/*.rb "$TAP_DIR/Formula/"
+          # setup-homebrew links this checkout in as the tap already, so the
+          # formula just edited above is the one `brew` resolves. Creating the
+          # tap and copying into it - which this step used to do - failed with
+          # "Tap is already installed" and then "source and destination are the
+          # same file". Both were ceremony around a thing that had happened.
           brew install --build-from-source "$GITHUB_REPOSITORY_OWNER/tap/ux-ui-agent-skills"
           brew test ux-ui-agent-skills
           brew audit --strict --online --formula "$GITHUB_REPOSITORY_OWNER/tap/ux-ui-agent-skills"
