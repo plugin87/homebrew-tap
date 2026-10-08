@@ -66,6 +66,13 @@ jobs:
 
       - name: Commit
         if: steps.sync.outputs.changed == 'true'
+        env:
+          # setup-homebrew re-points this checkout into the Taps directory, and
+          # the credential helper actions/checkout installed does not follow it:
+          # the push failed with "could not read Username for github.com". The
+          # token goes through the environment rather than the command line so
+          # it is not visible in a process list.
+          GH_TOKEN: ${{ github.token }}
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -78,4 +85,4 @@ jobs:
           # directory, and a bare `git push` there finds no upstream and exits
           # 128 - after the bump has been verified and committed, which is the
           # worst place to stop.
-          git push origin HEAD:main
+          git push "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}" HEAD:main
