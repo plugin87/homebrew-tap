@@ -27,6 +27,14 @@ jobs:
         with:
           node-version: 22
 
+      # ubuntu-latest has no brew on PATH, so the verify step below died with
+      # `brew: command not found` the first time this workflow had real work to
+      # do. The scaffold's tests.yml sets Homebrew up and this one did not - a
+      # path that only runs on the day a release lands, which is the worst kind
+      # to leave untested.
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@e99025eb970cfa124b8284a35463d87426917478 # 2026.09.28.1
+
       - name: Point the formula at npm's latest
         id: sync
         run: |
