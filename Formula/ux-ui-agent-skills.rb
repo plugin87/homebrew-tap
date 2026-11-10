@@ -4,8 +4,8 @@
 class UxUiAgentSkills < Formula
   desc "Design-system kit for coding agents: tokens, components, WCAG gates"
   homepage "https://github.com/plugin87/ux-ui-agent-skills"
-  url "https://registry.npmjs.org/ux-ui-agent-skills/-/ux-ui-agent-skills-3.0.0.tgz"
-  sha256 "21c6af4661e8b33fd232b3556907dc394c84fa4cdd2fa4f24175a75983bcc39e"
+  url "https://registry.npmjs.org/ux-ui-agent-skills/-/ux-ui-agent-skills-3.1.0.tgz"
+  sha256 "f4aebbb0626dab0618559b0e41e756dfaf0f35bd9377e287ba838e667963c41d"
   license "MIT"
 
   depends_on "node"
